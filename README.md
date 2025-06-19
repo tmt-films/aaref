@@ -16,6 +16,49 @@
   - `CHID` - Your Force subscribe channel id , And Make Bot Admin Here
   - `SUDO` - bot owners Id/ ids ( for broadcast and stats cmds). for multiple use space between each.
   - `MONGO_URI` - Mongodb database here, Watch [Video Tutorial](https://youtu.be/DAHRmFdw99o)
+
+## Invite System
+
+This feature allows group/channel owners to require users to invite a certain number of new members before they are automatically approved to join. It's a great way to organically grow your community!
+
+### For Group Admins
+
+1.  **Bot Permissions:**
+    *   The bot must be an admin in your group or channel.
+    *   It needs the "Add Members" permission (or "Invite Users via Link" / "Manage Join Requests") to approve users and manage join requests.
+
+2.  **Enabling & Configuring:**
+    *   Use the `/referralsettings <number>` command in your group/channel (the bot needs to be a member to see the command).
+    *   `<number>` is the number of successful invites a user needs to make to get approved.
+    *   **Example:** `/referralsettings 5` - Sets the requirement to 5 invites.
+    *   **To disable:** `/referralsettings 0` - Turns off the invite system for the chat, and new users will be approved directly (if the bot's main auto-approval function is active).
+
+3.  **Important Note for Users:**
+    *   The bot interacts with users via Private Message (PM) to give them their personal invite link and updates. Encourage your users to start a chat with the bot (`/start` command) if they haven't already, especially if they encounter issues receiving messages.
+
+### For Users
+
+1.  **Joining Process:**
+    *   If you attempt to join a group/channel that has the invite system enabled, your join request will be marked as pending.
+    *   The bot will send you a private message. This message will explain the invite requirement and provide:
+        *   Your unique personal invite link (often in a separate message for easy copying).
+        *   The number of friends you need to invite using this link.
+    *   The bot uses interactive inline buttons to help you understand the process (e.g., "How Invites Work") and manage your invites.
+    *   Share your unique personal invite link with friends. When a friend clicks your link and starts the bot, they will be associated with your invite.
+
+2.  **Tracking Progress & Approval:**
+    *   **For your referrer (the person whose link you used):** When you use someone's invite link to start the bot, their invite count is updated. If they reach their target, they get approved for the chat.
+    *   **For you (the new user):** After you've used an invite link, the bot will tell you if *you* also need to invite others to join that specific chat.
+        *   If the chat requires further invites from you, you'll get your own unique invite link and target number of invites.
+        *   If the chat *doesn't* require further invites from you at that point (e.g., invites are off for new members, or you used an invite link for a chat that doesn't cascade the requirement), you will be instructed on how to join (usually by trying to join the chat directly if you haven't already).
+    *   When you successfully invite the required number of friends (if applicable to you), the bot will automatically approve your join request for the group/channel.
+
+3.  **Check Your Status:**
+    *   Use the `/myreferralstatus` command in a private chat with the bot.
+    *   The bot will show you all your active invite tasks (if any), your progress for each, and provides interactive buttons to get your unique invite links or refresh the status.
+
+4.  **Reminders:**
+    *   If your invite task is still pending, the bot will send you a reminder message approximately every 24 hours with your progress and invite link. Reminder messages also include quick action buttons, like checking your full status.
   
 ## 💫 Credits
  
