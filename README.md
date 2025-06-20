@@ -10,6 +10,22 @@
 ## How To Deploy [Video Tutorial](https://youtu.be/M76T4pKm6ks)
 
 ## 🏷 Environment Variables
+
+This project uses environment variables for configuration. A file named `sample.env` is included in the root of the repository, which lists all necessary variables.
+
+**To set up your configuration:**
+
+1.  Make a copy of `sample.env` and rename it to `.env`.
+    ```bash
+    cp sample.env .env
+    ```
+    (If you are deploying on a platform like Heroku or Railway, you will typically set these environment variables directly in the platform's dashboard settings instead of using a `.env` file.)
+
+2.  Open the `.env` file with a text editor if you are running the bot locally.
+3.  Fill in your actual values for each variable listed. Comments in the `sample.env` file explain what each variable is for.
+4.  **Important (for local development):** The `.env` file contains your secret credentials. It is included in the `.gitignore` file to prevent accidental commitment to your repository. Do not share this file or commit it if it contains your live secrets.
+
+The required variables are:
   - `API_ID` - Your Telegram API ID.Get it [Here](my.telegram.org)
   - `API_HASH` - Your Telegram API HASH.Get it [Here](my.telegram.org)
   - `BOT_TOKEN` - Your Bot Token. Get it from [Here](https://t.me/BotFather)
