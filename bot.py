@@ -472,8 +472,10 @@ print("I'm Alive Now!")
 #━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Reminder System ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 async def send_referral_reminders(client: Client): # Pass client instance
-    print("Reminder task started.")
-    await asyncio.sleep(15) # Initial delay to allow bot to fully start before first query
+    print("Reminder task initiated. Waiting for client connection...")
+    while not client.is_connected:
+        await asyncio.sleep(1)
+    print("Reminder task: Client connected. Fetching bot username...")
 
     bot_username = ""
     try:
@@ -566,33 +568,8 @@ async def send_referral_reminders(client: Client): # Pass client instance
         await asyncio.sleep(3600) # Check pending invites every hour
 
 
-# Schedule the reminder task
-if __name__ == "__main__":
-    pass
-
-async def main_with_reminder():
-    await app.start()
-    print("Bot started! Reminder task will run in background.")
-    asyncio.create_task(send_referral_reminders(app))
-    await app.idle()
-
-if __name__ == '__main__':
-    print("Starting bot with reminder system...")
-    asyncio.run(main_with_reminder())
-else:
-    # Simplified scheduling for when bot.py is imported
-    # Assumes app is initialized and event loop is running or will be soon
-    # This part might need adjustment based on the actual entry point (e.g., app.py)
-    loop = asyncio.get_event_loop()
-    if loop.is_running():
-        loop.create_task(send_referral_reminders(app))
-    else:
-        # For Pyrogram v1 that uses app.run(), this is a common pattern:
-        app.loop.create_task(send_referral_reminders(app))
-        # However, the current template uses app.run() at the end, suggesting v1 style or a compatible run method.
-        # The previous `loop = asyncio.get_event_loop(); loop.create_task(); app.run()` is generally more robust for v1.
-        # For now, sticking to the last working version of this block.
-        # The diff shows `loop.create_task()` then `app.run()` which is fine.
+# Schedule the reminder task (This entire block will be replaced by the new __main__ below)
+# The following __main__ and else block structure will be removed.
 
 #━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ My Invite Status (Helper and Command) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -732,3 +709,23 @@ async def handle_refresh_trigger_status(client: Client, cb: CallbackQuery):
     except Exception as e:
         print(f"Error in handle_refresh_trigger_status for user {cb.from_user.id}: {e}")
         await cb.answer("Could not refresh status.", show_alert=True)
+
+if __name__ == "__main__":
+    # The "I'm Alive Now!" print is higher up in the file, before Reminder System section.
+    # It will print when the script is parsed.
+    # app.run() will also print its own "bot started" type messages.
+    print("Initializing bot startup sequence...") # Changed from "Starting bot with reminder system..."
+
+    loop = asyncio.get_event_loop()
+
+    # Schedule the reminder task. It will wait internally for client connection.
+    loop.create_task(send_referral_reminders(app)) # 'app' is global
+    print("Reminder task scheduled.")
+
+    # app.run() is blocking and runs the Pyrogram client.
+    # It handles app.start() and app.stop() internally.
+    # Pyrogram's app.run() itself will print messages upon successful start.
+    app.run()
+
+    # This line will be reached when the bot is stopped (e.g., Ctrl+C)
+    print("Bot stopped.")
