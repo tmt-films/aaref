@@ -9,21 +9,38 @@
 
 ## How To Deploy [Video Tutorial](https://youtu.be/M76T4pKm6ks)
 
+Before deploying or running locally, ensure you have all necessary dependencies installed:
+
+1.  **Clone the repository (if you haven't already):**
+    ```bash
+    git clone https://github.com/VJBots/VJ-Auto-Approve-Bot.git
+    cd VJ-Auto-Approve-Bot
+    ```
+2.  **Install dependencies:**
+    Install the required Python packages using:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+Now, follow the video tutorial for deployment on platforms like Heroku, or set up environment variables for local execution.
+
 ## 🏷 Environment Variables
 
 This project uses environment variables for configuration. A file named `sample.env` is included in the root of the repository, which lists all necessary variables.
 
-**To set up your configuration:**
+**To set up your configuration for local development:**
 
 1.  Make a copy of `sample.env` and rename it to `.env`.
     ```bash
     cp sample.env .env
     ```
-    (If you are deploying on a platform like Heroku or Railway, you will typically set these environment variables directly in the platform's dashboard settings instead of using a `.env` file.)
+    This project uses the `python-dotenv` library to automatically load variables from the `.env` file into the environment when the bot starts. This is convenient for local development.
 
-2.  Open the `.env` file with a text editor if you are running the bot locally.
+2.  Open the `.env` file with a text editor.
 3.  Fill in your actual values for each variable listed. Comments in the `sample.env` file explain what each variable is for.
 4.  **Important (for local development):** The `.env` file contains your secret credentials. It is included in the `.gitignore` file to prevent accidental commitment to your repository. Do not share this file or commit it if it contains your live secrets.
+
+(If you are deploying on a platform like Heroku or Railway, you will typically set these environment variables directly in the platform's dashboard settings instead of using a `.env` file.)
 
 The required variables are:
   - `API_ID` - Your Telegram API ID.Get it [Here](my.telegram.org)
@@ -32,6 +49,8 @@ The required variables are:
   - `CHID` - Your Force subscribe channel id , And Make Bot Admin Here
   - `SUDO` - bot owners Id/ ids ( for broadcast and stats cmds). for multiple use space between each.
   - `MONGO_URI` - Mongodb database here, Watch [Video Tutorial](https://youtu.be/DAHRmFdw99o)
+
+**Note on Configuration:** Ensure all required variables are set correctly either in your `.env` file (for local development) or in your deployment environment's settings. The bot now includes checks and will provide specific error messages at startup if critical variables like `API_ID`, `BOT_TOKEN`, `CHID`, or `MONGO_URI` are missing or improperly formatted.
 
 ## Invite System
 
